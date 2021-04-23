@@ -10,7 +10,7 @@
     <Description>The definitive rapid application development framework for building Android and Apple mobile applications using Xamarin.</Description>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Owners>Mazi Muhlari</Owners>
-    <RepositoryUrl>https://dev.azure.com/mazimuhlari/Qinile/_git/Qinile</RepositoryUrl> 
+    <RepositoryUrl>https://github.com/MaziMuhlari/qinile-xamarin</RepositoryUrl> 
     <RepositoryType>git</RepositoryType> 
     <Title>Qinile.Core</Title>
     <PackageId>Qinile.Core</PackageId>

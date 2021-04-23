@@ -33,5 +33,5 @@ jobs:
           dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
 
       - name: Dotnet Push
-        run: dotnet nuget push source/Qinile.Core/bin/Release/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
     

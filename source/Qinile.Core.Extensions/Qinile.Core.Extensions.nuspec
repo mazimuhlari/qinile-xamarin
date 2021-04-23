@@ -11,7 +11,7 @@
     <releaseNotes>Performance, Bug Fixes and Features</releaseNotes>
     <copyright>Mazi Muhlari</copyright>
     <tags>MaziMuhlari Xamarin Framework</tags>
-    <repository type="git" url="https://github.com/MaziMuhlari/qinile-xamarin"  />
+    <repository type="git" url="https://github.com/mazimuhlari/qinile-xamarin"  />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Xamarin.Forms" version="5.0.0.2012" exclude="Build,Analyzers" />

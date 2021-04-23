@@ -1,4 +1,4 @@
-name: publish core to nuget
+name: Qinile.Core
 on:
   push:
     branches:
@@ -6,12 +6,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Publish Qinile.Core to Nuget
+    name: Build, Pack & Publish
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '3.1.x'
+          source-url: https://nuget.pkg.github.com/mazimuhlari/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
       - name: Build Qinile.Core

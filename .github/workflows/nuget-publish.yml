@@ -8,6 +8,7 @@ env:
   DOTNET_VERSION: '3.1.x'
   PACKAGE_MAJOR_VERSION: 0
   PACKAGE_MINOR_VERSION: 0
+  PACKAGE_VERSION: $PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
   REPOSITORY_URL: https://api.nuget.org/v3/index.json
 
 jobs:
@@ -32,17 +33,13 @@ jobs:
         run: dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release
 
       - name: Dotnet Pack Qinile.Core
-        run: |
-          PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
-          dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
+        run: dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
 
       - name: Dotnet Build Qinile.Core.Behaviours
         run: dotnet build source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release
 
       - name: Dotnet Pack Qinile.Core.Behaviours
-        run: |
-          PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
-          dotnet pack source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
+        run: dotnet pack source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
 
       # Push
       - name: Dotnet Push

@@ -77,19 +77,6 @@ jobs:
       - name: Dotnet Pack Qinile.Core.ViewModels
         run: dotnet pack source/Qinile.Core.ViewModels/Qinile.Core.ViewModels.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
 
-      # Tag
-
-      - name: Tag Release
-        id: tag_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{env.PACKAGE_VERSION}}
-          release_name: Release ${{env.PACKAGE_VERSION}}
-          draft: false
-          prerelease: false
-
       # Push
       - name: Dotnet Push Qinile.Core
         run: dotnet nuget push out/Qinile.Core.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate

@@ -1,4 +1,4 @@
-name: Publish to Nuget
+name: Publish Qinile Core to Nuget
 on:
   push:
     branches:
@@ -36,13 +36,13 @@ jobs:
           PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
           dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
 
-      - name: Dotnet Build Qinile.Behaviours
-        run: dotnet build source/Qinile.Behaviours/Qinile.Behaviours.csproj --configuration Release
+      - name: Dotnet Build Qinile.Core.Behaviours
+        run: dotnet build source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release
 
-      - name: Dotnet Pack Qinile.Behaviours
+      - name: Dotnet Pack Qinile.Core.Behaviours
         run: |
           PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
-          dotnet pack source/Qinile.Behaviours/Qinile.Behaviours.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
+          dotnet pack source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
 
       # Push
       - name: Dotnet Push

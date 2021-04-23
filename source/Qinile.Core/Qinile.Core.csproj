@@ -19,6 +19,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <NeutralLanguage>en-ZA</NeutralLanguage>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:MaziMuhlariControls="clr-namespace:Qinile.Core.Controls.EmbeddedCameraViewFinder;assembly=Qinile.Core.Controls"
+    x:Class="Qinile.App.Views.EmbeddedCameraPage">
+    <ContentPage.Content>
+        <MaziMuhlariControls:EmbeddedCameraViewFinder
+            Camera="Front"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+    </ContentPage.Content>
+</ContentPage>

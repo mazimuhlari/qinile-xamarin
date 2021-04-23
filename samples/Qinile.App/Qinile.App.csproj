@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.3.3" />
+    <PackageReference Include="akavache" Version="7.2.1" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\source\Qinile.Core\Qinile.Core.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Behaviours\Qinile.Core.Behaviours.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Converters\Qinile.Core.Converters.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Data\Qinile.Core.Data.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Extensions\Qinile.Core.Extensions.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Models\Qinile.Core.Models.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.Services\Qinile.Core.Services.csproj" />
+    <ProjectReference Include="..\source\Qinile.Core.ViewModels\Qinile.Core.ViewModels.csproj" />
+  </ItemGroup>
+</Project>

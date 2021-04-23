@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$authors$</authors>
+    <owners>$author$</owners>
+    <description>$description$</description>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>Performance, Bug Fixes and Features</releaseNotes>
+    <copyright>Mazi Muhlari</copyright>
+    <tags>MaziMuhlari Xamarin Framework</tags>
+    <repository type="git" url="https://dev.azure.com/mazimuhlari/Qinile/_git/Qinile"  />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Qinile.Core.Data" version="(1.0.68,)" exclude="Build,Analyzers" />
+        <dependency id="Qinile.Core.Extensions" version="(1.0.68,)" exclude="Build,Analyzers" />
+        <dependency id="Qinile.Core.Services" version="(1.0.68,)" exclude="Build,Analyzers" />  
+        <dependency id="PropertyChanged.Fody" version="3.3.3" exclude="Build,Analyzers" />
+        <dependency id="Refractored.MvvmHelpers" version="1.6.2" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2012" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

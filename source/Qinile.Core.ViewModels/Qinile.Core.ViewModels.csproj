@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Mazi Muhlari</Authors>
+    <Company>M Muhlari Holdings</Company>
+    <Copyright>Mazi Muhlari</Copyright>
+    <PackageReleaseNotes>Performance, Bug Fixes and Features</PackageReleaseNotes>
+    <PackageTags>MaziMuhlari Xamarin Framework</PackageTags>
+    <Description>The definitive rapid application development framework for building Android and Apple mobile applications using Xamarin.</Description>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Summary>The definitive rapid application development framework for building Android and Apple mobile applications using Xamarin.</Summary>
+    <Owners>Mazi Muhlari</Owners>
+    <RepositoryUrl>https://dev.azure.com/mazimuhlari/Qinile/_git/Qinile</RepositoryUrl> 
+    <RepositoryType>git</RepositoryType> 
+    <PackageId>Qinile.Core.ViewModels</PackageId>
+    <Title>Qinile.Core.ViewModels</Title>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <NeutralLanguage>en-ZA</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.3.3" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Qinile.Core.Data\Qinile.Core.Data.csproj" />
+    <ProjectReference Include="..\Qinile.Core.Services\Qinile.Core.Services.csproj" />
+    <ProjectReference Include="..\Qinile.Core.Extensions\Qinile.Core.Extensions.csproj" />
+  </ItemGroup>
+</Project>

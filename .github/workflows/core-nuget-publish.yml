@@ -33,5 +33,5 @@ jobs:
         run: dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source
 
       - name: Dotnet Push
-        run: dotnet nuget push source/Qinile.Core/bin/Release/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate
+        run: dotnet nuget push source/Qinile.Core/bin/Release/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
     

@@ -1,4 +1,4 @@
-name: Qinile.Core
+name: Publish Qinile.Core to Nuget
 on:
   push:
     branches:
@@ -16,8 +16,8 @@ jobs:
           dotnet-version: '3.1.x'
       - name: Build Qinile.Core
         run: dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release 
-      #- name: Create the package
-      #  run: dotnet pack --configuration Release <my project>
+      - name: Create the package
+        run: dotnet pack --configuration Release source/Qinile.Core/Qinile.Core.csproj --include-symbols --include-source
       #- name: Publish the package to GPR
       #  run: dotnet nuget push <my project>/bin/Release/*.nupkg
     

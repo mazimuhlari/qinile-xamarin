@@ -27,10 +27,10 @@ jobs:
       - name: Dotnet Build
         run: |
           PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
-          dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release -o out -p:PackageVersion=$PACKAGE_VERSION
+          dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release
 
       - name: Dotnet Pack
-        run: dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source
+        run: dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=$PACKAGE_VERSION
 
       - name: Dotnet Push
         run: dotnet nuget push source/Qinile.Core/bin/Release/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate

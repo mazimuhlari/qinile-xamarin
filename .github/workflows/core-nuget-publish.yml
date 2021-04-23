@@ -8,15 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Build, Pack & Publish
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure Dotnet
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '3.1.x'
-          source-url: https://nuget.pkg.github.com/mazimuhlari/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
       - name: Build Qinile.Core
-        run: dotnet build source/Qinile.Core/Qinile.Core.csproj
+        run: dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release 
       #- name: Create the package
       #  run: dotnet pack --configuration Release <my project>
       #- name: Publish the package to GPR

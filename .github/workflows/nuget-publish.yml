@@ -40,8 +40,44 @@ jobs:
 
       - name: Dotnet Pack Qinile.Core.Behaviours
         run: dotnet pack source/Qinile.Core.Behaviours/Qinile.Core.Behaviours.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+      
+      - name: Dotnet Build Qinile.Core.Converters
+        run: dotnet build source/Qinile.Core.Converters/Qinile.Core.Converters.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Converters
+        run: dotnet pack source/Qinile.Core.Converters/Qinile.Core.Converters.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
+      - name: Dotnet Build Qinile.Core.Data
+        run: dotnet build source/Qinile.Core.Data/Qinile.Core.Data.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Data
+        run: dotnet pack source/Qinile.Core.Data/Qinile.Core.Data.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
+      - name: Dotnet Build Qinile.Core.Extensions
+        run: dotnet build source/Qinile.Core.Extensions/Qinile.Core.Extensions.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Extensions
+        run: dotnet pack source/Qinile.Core.Extensions/Qinile.Core.Extensions.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
+      - name: Dotnet Build Qinile.Core.Models
+        run: dotnet build source/Qinile.Core.Models/Qinile.Core.Models.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Models
+        run: dotnet pack source/Qinile.Core.Models/Qinile.Core.Models.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
+      - name: Dotnet Build Qinile.Core.Services
+        run: dotnet build source/Qinile.Core.Services/Qinile.Core.Services.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Services
+        run: dotnet pack source/Qinile.Core.Services/Qinile.Core.Services.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
+      - name: Dotnet Build Qinile.Core.ViewModels
+        run: dotnet build source/Qinile.Core.ViewModels/Qinile.Core.ViewModels.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.ViewModels
+        run: dotnet pack source/Qinile.Core.ViewModels/Qinile.Core.ViewModels.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
 
       # Push
       - name: Dotnet Push
-        run: dotnet nuget push out/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push **/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
     

@@ -79,5 +79,12 @@ jobs:
 
       # Push
       - name: Dotnet Push
-        run: dotnet nuget push **/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Behaviours.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Converters.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Data.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Extensions.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Models.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.Services.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+        run: dotnet nuget push out/Qinile.Core.ViewModels.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
     

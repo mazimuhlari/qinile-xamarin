@@ -3,21 +3,35 @@ on:
   push:
     branches:
       - main # Default release branch
+
+env:
+  DOTNET_VERSION: '3.1.x'
+  PACKAGE_MAJOR_VERSION: 0
+  PACKAGE_MINOR_VERSION: 0
+  REPOSITORY_URL: https://api.nuget.org/v3/index.json
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Build, Pack & Publish
     steps:
+
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Configure Dotnet
+
+      - name: Configure Dotnet ${{env.DOTNET_VERSION}}
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
-      - name: Build Qinile.Core
-        run: dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release 
-      - name: Create the package
-        run: dotnet pack --configuration Release source/Qinile.Core/Qinile.Core.csproj --include-symbols --include-source
-      #- name: Publish the package to GPR
-      #  run: dotnet nuget push <my project>/bin/Release/*.nupkg
+          dotnet-version: ${{env.DOTNET_VERSION}}
+
+      - name: Dotnet Build
+        run: |
+          PACKAGE_VERSION=$PACKAGE_MAJOR_VERSION.$PACKAGE_MINOR_VERSION.$GITHUB_RUN_NUMBER
+          dotnet build source/Qinile.Core/Qinile.Core.csproj --configuration Release -o out -p:PackageVersion=$PACKAGE_VERSION
+
+      - name: Dotnet Pack
+        run: dotnet pack source/Qinile.Core/Qinile.Core.csproj --configuration Release --include-symbols --include-source
+
+      - name: Dotnet Push
+        run: dotnet nuget push source/Qinile.Core/bin/Release/*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.GITHUB_TOKEN}} --skip-duplicate
     

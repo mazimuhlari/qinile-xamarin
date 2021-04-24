@@ -72,8 +72,7 @@ namespace Qinile.Core.Services
             var items = await GetObjects(key);
             var affected = await DeleteObject(key, obj.Id);
 
-            items.Add(obj);
-            await SaveObjects(key, items);
+            await SaveObject(key, obj);
 
             return affected;
         }

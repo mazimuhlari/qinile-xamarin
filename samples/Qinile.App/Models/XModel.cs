@@ -1,8 +1,9 @@
 ﻿using System;
+using Qinile.Core.Models;
 
 namespace Qinile.App.Models
 {
-    public class XModel
+    public class XModel : BaseModel<Guid>
     {
         public string ImageUrl { get; set; }
         public string Name { get; set; }

@@ -4,48 +4,55 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Akavache;
-using Qinile.Core.Models;
 using MoreLinq;
+using Qinile.Core.Models;
 
 namespace Qinile.Core.Services
 {
     public class CacheService<T, I> where T : BaseModel<I> where I : struct
     {
-        public async Task<bool> Contains(string key)
+        public string cacheKey;
+
+        public CacheService(string cacheKey)
         {
-            var keys = await BlobCache.Secure.GetAllKeys();
-            return keys.Contains(key);
+            this.cacheKey = cacheKey;
         }
 
-        public async Task<T> GetObject(string key)
+        public async Task<bool> Exists()
+        {
+            var keys = await BlobCache.Secure.GetAllKeys();
+            return keys.Contains(cacheKey);
+        }
+
+        public async Task<T> GetObject()
         {
             var obj = default(T);
-            var isCacheExists = await Contains(key);
+            var isCacheExists = await Exists();
 
             if (isCacheExists)
-                obj = await BlobCache.Secure.GetObject<T>(key);
+                obj = await BlobCache.Secure.GetObject<T>(cacheKey);
 
             return obj;
         }
 
-        public async Task<List<T>> GetObjects(string key)
+        public async Task<List<T>> GetObjects()
         {
-            var isCacheExists = await Contains(key);
+            var isCacheExists = await Exists();
 
             if (isCacheExists)
-                return await BlobCache.Secure.GetObject<List<T>>(key);
+                return await BlobCache.Secure.GetObject<List<T>>(cacheKey);
 
             return new List<T>();
         }
 
-        public async Task<T> GetObjectById(string key, I id)
+        public async Task<T> GetObjectById(I id)
         {
             var obj = default(T);
-            var isCacheExists = await Contains(key);
+            var isCacheExists = await Exists();
 
             if (isCacheExists)
             {
-                var items = await BlobCache.Secure.GetObject<List<T>>(key);
+                var items = await BlobCache.Secure.GetObject<List<T>>(cacheKey);
                 obj = items.FirstOrDefault(e => e.Id.Equals(id));
             }
 
@@ -53,55 +60,55 @@ namespace Qinile.Core.Services
 
         }
 
-        public async Task<System.Reactive.Unit> SaveObject(string key, T obj)
+        public async Task<System.Reactive.Unit> SaveObject(T obj)
         {
-            var items = await GetObjects(key);
+            var items = await GetObjects();
             items.Add(obj);
             var uniques = items.Distinct();
-            return await BlobCache.Secure.InsertObject(key, uniques);
+            return await BlobCache.Secure.InsertObject(cacheKey, uniques);
         }
 
-        public async Task<System.Reactive.Unit> SaveObjects(string key, List<T> objs)
+        public async Task<System.Reactive.Unit> SaveObjects(List<T> objs)
         {
-            var items = await GetObjects(key);
+            var items = await GetObjects();
             items.AddRange(objs);
             var uniques = items.DistinctBy(e => e.Id);
-            return await BlobCache.Secure.InsertObject(key, uniques);
+            return await BlobCache.Secure.InsertObject(cacheKey, uniques);
         }
 
-        public async Task<int> UpdateObject(string key, T obj)
+        public async Task<int> UpdateObject(T obj)
         {
-            var items = await GetObjects(key);
-            var affected = await DeleteObject(key, obj.Id);
+            var items = await GetObjects();
+            var affected = await DeleteObject(obj.Id);
 
-            await SaveObject(key, obj);
+            await SaveObject(obj);
 
             return affected;
         }
 
-        public async Task<int> UpdateObjects(string key, List<T> objs)
+        public async Task<int> UpdateObjects(List<T> objs)
         {
-            var items = await GetObjects(key);
+            var items = await GetObjects();
             var ids = objs.Select(item => item.Id).ToList();
-            var affected = await DeleteObjects(key, ids);
+            var affected = await DeleteObjects(ids);
 
             items.AddRange(objs);
-            await SaveObjects(key, items);
+            await SaveObjects(items);
 
             return affected;
         }
 
-        public async Task<int> DeleteObject(string key, I id)
+        public async Task<int> DeleteObject(I id)
         {
-            var isCacheExists = await Contains(key);
+            var isCacheExists = await Exists();
 
             if (isCacheExists)
             {
-                var items = await GetObjects(key);
+                var items = await GetObjects();
                 var affected = items.RemoveAll(item => item.Id.Equals(id));
 
-                await BlobCache.Secure.InvalidateObject<T>(key);
-                await SaveObjects(key, items);
+                await BlobCache.Secure.InvalidateObject<T>(cacheKey);
+                await SaveObjects(items);
 
                 return affected;
             }
@@ -109,17 +116,17 @@ namespace Qinile.Core.Services
             return 0;
         }
 
-        public async Task<int> DeleteObjects(string key, List<I> ids)
+        public async Task<int> DeleteObjects(List<I> ids)
         {
-            var isCacheExists = await Contains(key);
+            var isCacheExists = await Exists();
 
             if (isCacheExists)
             {
-                var items = await GetObjects(key);
+                var items = await GetObjects();
                 var affected = items.RemoveAll(x => ids.Contains(x.Id));
 
-                await BlobCache.Secure.InvalidateObject<T>(key);
-                await SaveObjects(key, items);
+                await BlobCache.Secure.InvalidateObject<T>(cacheKey);
+                await SaveObjects(items);
 
                 return affected;
             }

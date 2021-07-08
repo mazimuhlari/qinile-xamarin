@@ -1,12 +1,13 @@
 ﻿using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Qinile.Core.Models;
 using RestSharp;
 using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class CreateService<T, K> : ICreateService<T, K> where T : class
+    public class CreateService<M, C, I> : ICreateService<M, C, I> where M : BaseModel<I> where I : struct
     {
         private readonly RestClient client;
 
@@ -22,7 +23,7 @@ namespace Qinile.Core.Services
             client = new RestClient(baseUrl);
         }
 
-        public virtual async Task<Meta<T>> CreateItemAsync(K item)
+        public virtual async Task<Meta<M>> CreateItemAsync(C item)
         {
             var request = new RestRequest(resourceUrl, Method.POST);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -33,7 +34,7 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }

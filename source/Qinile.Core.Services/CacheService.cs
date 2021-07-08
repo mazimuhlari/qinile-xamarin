@@ -9,7 +9,7 @@ using Qinile.Core.Models;
 
 namespace Qinile.Core.Services
 {
-    public class CacheService<T, I> where T : BaseModel<I> where I : struct
+    public class CacheService<M, I> where M : BaseModel<I> where I : struct
     {
         public string cacheKey;
 
@@ -24,35 +24,35 @@ namespace Qinile.Core.Services
             return keys.Contains(cacheKey);
         }
 
-        public async Task<T> GetObject()
+        public async Task<M> GetObject()
         {
-            var obj = default(T);
+            var obj = default(M);
             var isCacheExists = await Exists();
 
             if (isCacheExists)
-                obj = await BlobCache.Secure.GetObject<T>(cacheKey);
+                obj = await BlobCache.Secure.GetObject<M>(cacheKey);
 
             return obj;
         }
 
-        public async Task<List<T>> GetObjects()
+        public async Task<List<M>> GetObjects()
         {
             var isCacheExists = await Exists();
 
             if (isCacheExists)
-                return await BlobCache.Secure.GetObject<List<T>>(cacheKey);
+                return await BlobCache.Secure.GetObject<List<M>>(cacheKey);
 
-            return new List<T>();
+            return new List<M>();
         }
 
-        public async Task<T> GetObjectById(I id)
+        public async Task<M> GetObjectById(I id)
         {
-            var obj = default(T);
+            var obj = default(M);
             var isCacheExists = await Exists();
 
             if (isCacheExists)
             {
-                var items = await BlobCache.Secure.GetObject<List<T>>(cacheKey);
+                var items = await BlobCache.Secure.GetObject<List<M>>(cacheKey);
                 obj = items.FirstOrDefault(e => e.Id.Equals(id));
             }
 
@@ -60,7 +60,7 @@ namespace Qinile.Core.Services
 
         }
 
-        public async Task<System.Reactive.Unit> SaveObject(T obj)
+        public async Task<System.Reactive.Unit> SaveObject(M obj)
         {
             var items = await GetObjects();
             items.Add(obj);
@@ -68,7 +68,7 @@ namespace Qinile.Core.Services
             return await BlobCache.Secure.InsertObject(cacheKey, uniques);
         }
 
-        public async Task<System.Reactive.Unit> SaveObjects(List<T> objs)
+        public async Task<System.Reactive.Unit> SaveObjects(List<M> objs)
         {
             var items = await GetObjects();
             items.AddRange(objs);
@@ -76,7 +76,7 @@ namespace Qinile.Core.Services
             return await BlobCache.Secure.InsertObject(cacheKey, uniques);
         }
 
-        public async Task<int> UpdateObject(T obj)
+        public async Task<int> UpdateObject(M obj)
         {
             var items = await GetObjects();
             var affected = await DeleteObject(obj.Id);
@@ -86,7 +86,7 @@ namespace Qinile.Core.Services
             return affected;
         }
 
-        public async Task<int> UpdateObjects(List<T> objs)
+        public async Task<int> UpdateObjects(List<M> objs)
         {
             var items = await GetObjects();
             var ids = objs.Select(item => item.Id).ToList();
@@ -107,7 +107,7 @@ namespace Qinile.Core.Services
                 var items = await GetObjects();
                 var affected = items.RemoveAll(item => item.Id.Equals(id));
 
-                await BlobCache.Secure.InvalidateObject<T>(cacheKey);
+                await BlobCache.Secure.InvalidateObject<M>(cacheKey);
                 await SaveObjects(items);
 
                 return affected;
@@ -125,7 +125,7 @@ namespace Qinile.Core.Services
                 var items = await GetObjects();
                 var affected = items.RemoveAll(x => ids.Contains(x.Id));
 
-                await BlobCache.Secure.InvalidateObject<T>(cacheKey);
+                await BlobCache.Secure.InvalidateObject<M>(cacheKey);
                 await SaveObjects(items);
 
                 return affected;

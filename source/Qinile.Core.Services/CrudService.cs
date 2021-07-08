@@ -3,12 +3,13 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Akavache;
 using Newtonsoft.Json;
+using Qinile.Core.Models;
 using RestSharp;
 using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class CrudService<T, K, V> : ICrudService<T, K, V> where T : class
+    public class CrudService<M, C, U, I> : ICrudService<M, C, U, I> where M : BaseModel<I> where I : struct
     {
         private readonly RestClient client;
 
@@ -24,7 +25,7 @@ namespace Qinile.Core.Services
             client = new RestClient(baseUrl);
         }
 
-        public virtual async Task<Meta<T>> CreateItemAsync(K item)
+        public virtual async Task<Meta<M>> CreateItemAsync(C item)
         {
             var request = new RestRequest(resourceUrl, Method.POST);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -35,12 +36,12 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }
 
-        public virtual async Task<Meta<T>> DeleteItemAsync(string id)
+        public virtual async Task<Meta<M>> DeleteItemAsync(I id)
         {
             var request = new RestRequest(resourceUrl + "/{id}", Method.DELETE);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -51,12 +52,12 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }
 
-        public virtual async Task<Meta<T>> GetItemAsync(string id)
+        public virtual async Task<Meta<M>> GetItemAsync(I id)
         {
             var request = new RestRequest(resourceUrl + "/{id}", Method.GET);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -67,15 +68,15 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }
 
-        public virtual async Task<Meta<IEnumerable<T>>> GetItemsAsync()
+        public virtual async Task<Meta<IEnumerable<M>>> GetItemsAsync()
         {
-            var items = await BlobCache.Secure.GetObject<IEnumerable<T>>(cacheKey)
-                .Catch(Observable.Return(new List<T>()));
+            var items = await BlobCache.Secure.GetObject<IEnumerable<M>>(cacheKey)
+                .Catch(Observable.Return(new List<M>()));
 
             var request = new RestRequest(resourceUrl, Method.GET);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -85,12 +86,12 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<IEnumerable<T>>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<IEnumerable<M>>>(content);
 
             return meta;
         }
 
-        public virtual async Task<Meta<T>> UpdateItemAsync(string id, V item)
+        public virtual async Task<Meta<M>> UpdateItemAsync(I id, U item)
         {
             var request = new RestRequest(resourceUrl + "/{id}", Method.PUT);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -102,7 +103,7 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }

@@ -1,12 +1,13 @@
 ﻿using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Qinile.Core.Models;
 using RestSharp;
 using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class UpdateService<T, V> : IUpdateService<T, V> where T : class
+    public class UpdateService<M, U, I> : IUpdateService<M, U, I> where M : BaseModel<I> where I : struct
     {
         private readonly RestClient client;
 
@@ -22,7 +23,7 @@ namespace Qinile.Core.Services
             client = new RestClient(baseUrl);
         }
 
-        public virtual async Task<Meta<T>> UpdateItemAsync(string id, V item)
+        public virtual async Task<Meta<M>> UpdateItemAsync(I id, U item)
         {
             var request = new RestRequest(resourceUrl + "/{id}", Method.PUT);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -34,7 +35,7 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }

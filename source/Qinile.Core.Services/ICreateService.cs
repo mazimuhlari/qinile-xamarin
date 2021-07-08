@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Qinile.Core.Models;
 
 namespace Qinile.Core.Services
 {
-    public interface ICreateService<T, K> where T : class
+    public interface ICreateService<M, C, I> where M : BaseModel<I> where I : struct
     {
-        Task<Meta<T>> CreateItemAsync(K item);
+        Task<Meta<M>> CreateItemAsync(C item);
     }
 }

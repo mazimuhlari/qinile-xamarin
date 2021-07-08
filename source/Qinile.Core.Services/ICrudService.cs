@@ -1,6 +1,8 @@
-﻿namespace Qinile.Core.Services
+﻿using Qinile.Core.Models;
+
+namespace Qinile.Core.Services
 {
-    public interface ICrudService<T, K, V> : ICreateService<T, K>, IReadService<T>, IUpdateService<T, V>, IDeleteService<T> where T : class
+    public interface ICrudService<M, C, U, I> : ICreateService<M, C, I>, IReadService<M, I>, IUpdateService<M, U, I>, IDeleteService<M, I> where M : BaseModel<I> where I : struct
     {
 
     }

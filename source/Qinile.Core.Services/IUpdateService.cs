@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Qinile.Core.Models;
 
 namespace Qinile.Core.Services
 {
-    public interface IUpdateService<T, V> where T : class
+    public interface IUpdateService<M, U, I> where M : BaseModel<I> where I : struct
     {
-        Task<Meta<T>> UpdateItemAsync(string id, V item);
+        Task<Meta<M>> UpdateItemAsync(I id, U item);
     }
 }

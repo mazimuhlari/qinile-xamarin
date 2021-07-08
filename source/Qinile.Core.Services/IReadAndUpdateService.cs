@@ -1,6 +1,8 @@
-﻿namespace Qinile.Core.Services
+﻿using Qinile.Core.Models;
+
+namespace Qinile.Core.Services
 {
-    public interface IReadAndUpdateService<T, V> : IReadService<T>, IUpdateService<T, V> where T : class
+    public interface IReadAndUpdateService<M, U, I> : IReadService<M, I>, IUpdateService<M, U, I> where M : BaseModel<I> where I : struct
     {
 
     }

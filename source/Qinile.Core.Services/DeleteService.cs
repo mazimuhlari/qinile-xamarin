@@ -1,12 +1,13 @@
 ﻿using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Qinile.Core.Models;
 using RestSharp;
 using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class DeleteService<T> : IDeleteService<T> where T : class
+    public class DeleteService<M, I> : IDeleteService<M, I> where M : BaseModel<I> where I : struct
     {
         private readonly RestClient client;
 
@@ -22,7 +23,7 @@ namespace Qinile.Core.Services
             client = new RestClient(baseUrl);
         }
 
-        public virtual async Task<Meta<T>> DeleteItemAsync(string id)
+        public virtual async Task<Meta<M>> DeleteItemAsync(I id)
         {
             var request = new RestRequest(resourceUrl + "/{id}", Method.DELETE);
             var token = Preferences.Get(PreferenceKeys.TOKEN_KEY, null);
@@ -33,7 +34,7 @@ namespace Qinile.Core.Services
 
             IRestResponse response = await client.ExecuteAsync(request);
             var content = response.Content;
-            var meta = JsonConvert.DeserializeObject<Meta<T>>(content);
+            var meta = JsonConvert.DeserializeObject<Meta<M>>(content);
 
             return meta;
         }

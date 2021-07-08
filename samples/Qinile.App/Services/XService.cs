@@ -14,7 +14,7 @@ using Xamarin.Essentials;
 
 namespace Qinile.App.Services
 {
-    public class XService : CrudService<XModel, Create, Update>, IXService
+    public class XService : CrudService<XModel, Create, Update, Guid>, IXService
     {
         private readonly RestClient client;
         private const string CACHE_KEY = "items";

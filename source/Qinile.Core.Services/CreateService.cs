@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class CreateService<M, C, I> : ICreateService<M, C, I> where M : BaseModel<I> where I : struct
+    public class CreateService<M, C, I> : ICreateService<M, C, I> where M : BaseModel<I>
     {
         private readonly RestClient client;
 

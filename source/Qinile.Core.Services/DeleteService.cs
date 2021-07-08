@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class DeleteService<M, I> : IDeleteService<M, I> where M : BaseModel<I> where I : struct
+    public class DeleteService<M, I> : IDeleteService<M, I> where M : BaseModel<I>
     {
         private readonly RestClient client;
 

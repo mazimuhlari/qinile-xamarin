@@ -9,7 +9,7 @@ using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class ReadAndUpdateService<M, U, I> : IReadAndUpdateService<M, U, I> where M : BaseModel<I> where I : struct
+    public class ReadAndUpdateService<M, U, I> : IReadAndUpdateService<M, U, I> where M : BaseModel<I>
     {
         private readonly RestClient client;
 

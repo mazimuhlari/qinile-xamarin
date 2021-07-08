@@ -9,7 +9,7 @@ using Qinile.Core.Models;
 
 namespace Qinile.Core.Services
 {
-    public class CacheService<M, I> where M : BaseModel<I> where I : struct
+    public class CacheService<M, I> where M : BaseModel<I>
     {
         public string cacheKey;
 

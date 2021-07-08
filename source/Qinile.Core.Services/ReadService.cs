@@ -9,7 +9,7 @@ using Xamarin.Essentials;
 
 namespace Qinile.Core.Services
 {
-    public class ReadService<M, I> : IReadService<M, I> where M : BaseModel<I> where I : struct
+    public class ReadService<M, I> : IReadService<M, I> where M : BaseModel<I>
     {
         private readonly RestClient client;
 

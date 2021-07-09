@@ -77,6 +77,12 @@ jobs:
       - name: Dotnet Pack Qinile.Core.ViewModels
         run: dotnet pack source/Qinile.Core.ViewModels/Qinile.Core.ViewModels.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
 
+      - name: Dotnet Build Qinile.Core.Views
+        run: dotnet build source/Qinile.Core.Views/Qinile.Core.Views.csproj --configuration Release
+
+      - name: Dotnet Pack Qinile.Core.Views
+        run: dotnet pack source/Qinile.Core.Views/Qinile.Core.Views.csproj --configuration Release --include-symbols --include-source -o out -p:PackageVersion=${{env.PACKAGE_VERSION}}
+
       # Push
       - name: Dotnet Push Qinile.Core
         run: dotnet nuget push out/Qinile.Core.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
@@ -101,4 +107,7 @@ jobs:
         
       - name: Dotnet Push Qinile.Core.ViewModels
         run: dotnet nuget push out/Qinile.Core.ViewModels.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+
+      - name: Dotnet Push Qinile.Core.Views
+        run: dotnet nuget push out/Qinile.Core.Views.*.nupkg --source ${{env.REPOSITORY_URL}} --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
     

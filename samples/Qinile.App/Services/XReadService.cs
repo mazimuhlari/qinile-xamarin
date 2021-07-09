@@ -14,10 +14,10 @@ using Xamarin.Essentials;
 
 namespace Qinile.App.Services
 {
-    public class XService : CrudService<XModel, Create, Update, Guid>, IXService
+    public class XReadService : ReadService<XModel, string>, IXReadService
     {
+        private const string CACHE_KEY = "byyytes";
         private readonly RestClient client;
-        private const string CACHE_KEY = "items";
 
         public XService(string baseUrl, string resourceUrl) : base(baseUrl, resourceUrl, CACHE_KEY)
         {

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qinile.Core.Behaviours", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qinile.Core", "source\Qinile.Core\Qinile.Core.csproj", "{3C0A7913-5C64-4F4C-A76E-F560E424BA49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qinile.Core.Views", "source\Qinile.Core.Views\Qinile.Core.Views.csproj", "{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,5 +167,17 @@ Global
 		{3C0A7913-5C64-4F4C-A76E-F560E424BA49}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{3C0A7913-5C64-4F4C-A76E-F560E424BA49}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{3C0A7913-5C64-4F4C-A76E-F560E424BA49}.Release|iPhone.Build.0 = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{5CC61BFC-8AB1-4807-9AB0-8AB0857F0819}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

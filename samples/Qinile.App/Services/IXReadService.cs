@@ -6,7 +6,7 @@ using Qinile.Core.Services;
 
 namespace Qinile.App.Services
 {
-    public interface IXService : IDataService<XModel>, ICrudService<XModel, Create, Update, Guid>
+    public interface IXReadService : IDataService<XModel>
     {
 
     }

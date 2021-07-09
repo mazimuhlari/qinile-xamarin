@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Class="Qinile.Core.Views.Templates.BasicCollectionViewCardViewCell">
+
+    <StackLayout
+        Padding="5">
+        <Pancake:PancakeView
+            CornerRadius="8"
+            IsClippedToBounds="True"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                RowSpacing="0"
+                ColumnSpacing="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ImageButton
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Aspect="AspectFill"
+                    Source="{Binding ImageUrl}"
+                    Command="{Binding GoToCollectionListPageCommand}"
+                    CommandParameter="{Binding .}"/>
+
+                <Label
+                    Grid.Row="1"
+                    Margin="30,10,30,10"
+                    TextColor="{AppThemeBinding Light=#ffffff, Dark=#ffffff}"
+                    FontSize="18"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    FontFamily="FiraSans-Bold"
+                    Text="{Binding Title}" />
+
+            </Grid>
+        </Pancake:PancakeView>
+    </StackLayout>
+
+</ViewCell>

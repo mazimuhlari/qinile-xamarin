@@ -16,6 +16,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="PropertyChanged.Fody" version="3.3.3" exclude="Build,Analyzers" />
         <dependency id="Xamarin.Forms" version="5.0.0.2012" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Forms.PancakeView" version="2.3.0.759" />
       </group>
     </dependencies>
   </metadata>

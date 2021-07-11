@@ -64,7 +64,7 @@
                                     TextColor="Black"
                                     FontSize="Medium"
                                     Margin="10,0,20,10"
-                                    Text="{Binding Blurb}" />
+                                    Text="{Binding Id}" />
                                 
                             </Grid>
                         </ViewCell>

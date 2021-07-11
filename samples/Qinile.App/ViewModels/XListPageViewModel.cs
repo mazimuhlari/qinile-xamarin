@@ -4,15 +4,18 @@ using System.Threading.Tasks;
 using Qinile.App.Models;
 using Qinile.App.Services;
 using Qinile.Core.Data;
+using Qinile.Core.Services;
 using Qinile.Core.ViewModels;
 
 namespace Qinile.App.ViewModels
 {
     public class XListPageViewModel : ListPageBaseViewModel<XModel>, IDataService<XModel>
     {
-        public XListPageViewModel(IXService service) : base(service)
-        {
+        private readonly IXReadService _service;
 
+        public XListPageViewModel() : base()
+        {
+            _service = new XReadService(Configuration.API_BASE_URL, Configuration.API_RESOURCE_URL);
         }
 
         public IObservable<IEnumerable<XModel>> GetLatestItems()

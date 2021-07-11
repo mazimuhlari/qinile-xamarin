@@ -7,9 +7,9 @@ using Akavache;
 using MoreLinq;
 using Qinile.Core.Models;
 
-namespace Qinile.Core.Services
+namespace Qinile.Core.Data
 {
-    public class CacheService<M, I> where M : BaseModel<I>
+    public class CacheService<M, I>  : ICacheService<M, I> where M : BaseModel<I>
     {
         public string cacheKey;
 

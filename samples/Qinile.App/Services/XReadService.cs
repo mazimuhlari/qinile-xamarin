@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Akavache;
-using Qinile.App.Contracts;
+using Newtonsoft.Json;
 using Qinile.App.Models;
 using Qinile.Core;
 using Qinile.Core.Data;
 using Qinile.Core.Services;
-using Newtonsoft.Json;
 using RestSharp;
 using Xamarin.Essentials;
 
@@ -16,10 +16,10 @@ namespace Qinile.App.Services
 {
     public class XReadService : ReadService<XModel, string>, IXReadService
     {
-        private const string CACHE_KEY = "byyytes";
+        private const string CACHE_KEY = "reads";
         private readonly RestClient client;
 
-        public XService(string baseUrl, string resourceUrl) : base(baseUrl, resourceUrl, CACHE_KEY)
+        public XReadService(string baseUrl, string resourceUrl) : base(baseUrl, resourceUrl, CACHE_KEY)
         {
             client = new RestClient(baseUrl);
         }
@@ -37,12 +37,17 @@ namespace Qinile.App.Services
 
         public IEnumerable<XModel> SearchItems(IEnumerable<XModel> items, string query)
         {
-            return null;
+            query = string.IsNullOrEmpty(query) ? "" : query.ToLower();
+            return items.Where(e =>
+                e.Id.ToLower().Contains(query)).ToList();
         }
 
         public IEnumerable<Group<string, XModel>> GroupItems(List<XModel> items)
         {
-            return null;
+            return from item in items
+                   orderby item.DateCreated
+                   group item by item.Id into itemGroup
+                   select new Group<string, XModel>(itemGroup.Key, itemGroup.OrderBy(e => e.Id));
         }
 
         public async Task<IObservable<IEnumerable<XModel>>> RemoveItemAsync(string id)

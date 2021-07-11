@@ -13,12 +13,12 @@ namespace Qinile.Core.ViewModels
     public class ListPageBaseViewModel<T> : BaseViewModel where T : class
     {
         #region fields
-        private IEnumerable<T> _latestItems;
+        private IEnumerable<T> _cache;
         #endregion
 
         #region properties
-        public readonly IDataService<T> _service;
-        public IEnumerable<T> InitialItems { get; set; }
+        public readonly IDataService<T> _dataService;
+        public IEnumerable<T> Cache { get; set; }
         public ObservableRangeCollection<Group<string, T>> GroupedItems { get; set; }
         public ObservableRangeCollection<T> Items { get; set; }
         public string Query { get; set; }
@@ -31,12 +31,10 @@ namespace Qinile.Core.ViewModels
         public ICommand OnCreateMenuTappedCommand { get; private set; }
         #endregion
 
-        public ListPageBaseViewModel(IDataService<T> service)
+        public ListPageBaseViewModel()
         {
-            _latestItems = new List<T>();
-            _service = service;
-
-            Initialize();
+            _cache = new List<T>();
+            _dataService = this as IDataService<T>;
 
             RefreshCommand = new Command(async () => await OnRefreshCommand());
             OnItemTappedCommand = new Command<T>(async (obj) => await OnItemTapped(obj));
@@ -79,13 +77,13 @@ namespace Qinile.Core.ViewModels
         public virtual async Task OnItemDeleteTapped(string id)
         {
             IsBusy = true;
-            var observable = await _service.RemoveItemAsync(id);
+            var observable = await _dataService.RemoveItemAsync(id);
             observable.Subscribe(items =>
             {
-                _latestItems = items;
+                _cache = items;
                 UpdateItems(items);
                 IsBusy = false;
-                InitialItems = items;
+                Cache = items;
             });
             await Task.FromResult(IsBusy);
             IsBusy = false;
@@ -99,13 +97,13 @@ namespace Qinile.Core.ViewModels
         public virtual async Task Initialize()
         {
             IsBusy = true;
-            var observable = _service.GetLatestItems();
+            var observable = _dataService.GetLatestItems();
             observable.Subscribe(items =>
             {
-                _latestItems = items;
+                _cache = items;
                 UpdateItems(items);
                 IsBusy = false;
-                InitialItems = items;
+                Cache = items;
             });
             await Task.FromResult(IsBusy);
             IsBusy = false;
@@ -113,7 +111,7 @@ namespace Qinile.Core.ViewModels
 
         public virtual void HandleSearch(string x)
         {
-            var list = _service.SearchItems(_latestItems, x);
+            var list = _dataService.SearchItems(_cache, x);
             UpdateItems(list);
         }
 
@@ -124,8 +122,8 @@ namespace Qinile.Core.ViewModels
 
             Items = new ObservableRangeCollection<T>(items);
 
-            if (_service != null)
-                GroupedItems = new ObservableRangeCollection<Group<string, T>>(_service.GroupItems(items.ToList()));
+            if (_dataService != null)
+                GroupedItems = new ObservableRangeCollection<Group<string, T>>(_dataService.GroupItems(items.ToList()));
         }
     }
 }

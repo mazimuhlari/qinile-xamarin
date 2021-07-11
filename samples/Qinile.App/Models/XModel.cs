@@ -3,7 +3,7 @@ using Qinile.Core.Models;
 
 namespace Qinile.App.Models
 {
-    public class XModel : BaseModel<Guid>
+    public class XModel : BaseModel<string>
     {
         public string ImageUrl { get; set; }
         public string Name { get; set; }

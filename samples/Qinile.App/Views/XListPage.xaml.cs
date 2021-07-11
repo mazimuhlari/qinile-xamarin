@@ -12,7 +12,7 @@ namespace Qinile.App.Views
         {
             try
             {
-                ViewModel = new XListPageViewModel(new XService(Configuration.API_BASE_URL, Configuration.API_RESOURCE_URL));
+                ViewModel = new XListPageViewModel();
                 InitializeComponent();
             }
             catch (Exception exception)

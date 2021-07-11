@@ -14,8 +14,11 @@
     <repository type="git" url="https://github.com/mazimuhlari/qinile-xamarin"  />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
+        <dependency id="akavache" version="7.2.1" exclude="Build,Analyzers" />
         <dependency id="Xamarin.Forms" version="5.0.0.2012" exclude="Build,Analyzers" />
         <dependency id="PropertyChanged.Fody" version="3.3.3" exclude="Build,Analyzers" />
+        <dependency id="morelinq" version="3.3.2" exclude="Build,Analyzers" />
+        <dependency id="Qinile.Core.Model" version="(0.0.16,)" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

@@ -23,7 +23,7 @@ namespace Qinile.App.Views
 
         protected override async void OnAppearing()
         {
-            await ViewModel.Initialize();
+            await ViewModel.Initialise();
         }
 
         public XListPageViewModel ViewModel

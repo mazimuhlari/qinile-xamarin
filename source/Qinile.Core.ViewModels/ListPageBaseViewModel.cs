@@ -66,7 +66,7 @@ namespace Qinile.Core.ViewModels
 
         public virtual async Task OnRefreshCommand()
         {
-            await Initialize();
+            await Initialise();
         }
 
         public virtual async Task OnItemTapped(T item)
@@ -94,7 +94,7 @@ namespace Qinile.Core.ViewModels
 
         }
 
-        public virtual async Task Initialize()
+        public virtual async Task Initialise()
         {
             IsBusy = true;
             var observable = _dataService.GetLatestItems();

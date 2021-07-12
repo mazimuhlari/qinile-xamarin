@@ -97,6 +97,7 @@ namespace Qinile.Core.ViewModels
         public virtual async Task Initialise()
         {
             IsBusy = true;
+
             var observable = _dataService.GetLatestItems();
             observable.Subscribe(items =>
             {
@@ -104,8 +105,14 @@ namespace Qinile.Core.ViewModels
                 UpdateItems(items);
                 IsBusy = false;
                 Cache = items;
+
+                if (!string.IsNullOrEmpty(Query))
+                    HandleSearch(Query);
+
             });
+
             await Task.FromResult(IsBusy);
+
             IsBusy = false;
         }
 

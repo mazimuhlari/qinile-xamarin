@@ -1,0 +1,41 @@
+{
+  "config": {
+    "name": "Default Board",
+    "columns": [
+      {
+        "name": "New",
+        "status": "new",
+        "agent_enabled": false,
+        "agent_mode": null
+      },
+      {
+        "name": "Open",
+        "status": "open",
+        "agent_enabled": false,
+        "agent_mode": null
+      },
+      {
+        "name": "In Progress",
+        "status": "inprogress",
+        "agent_enabled": false,
+        "agent_mode": null
+      },
+      {
+        "name": "Review",
+        "status": "review",
+        "agent_enabled": false,
+        "agent_mode": null
+      },
+      {
+        "name": "Done",
+        "status": "done",
+        "agent_enabled": false,
+        "agent_mode": null
+      }
+    ]
+  },
+  "tasks": {
+    "HLA1": "open"
+  },
+  "next_task_number": 2
+}
